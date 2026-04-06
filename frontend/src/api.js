@@ -16,11 +16,33 @@ async function api(path, options = {}) {
   return data;
 }
 
+async function apiUpload(path, formData) {
+  const token = localStorage.getItem('token');
+  const res = await fetch(`${BASE}${path}`, {
+    method: 'POST',
+    headers: { ...(token && { Authorization: `Bearer ${token}` }) },
+    body: formData,
+  });
+  const data = await res.json();
+  if (!res.ok) throw { status: res.status, ...data };
+  return data;
+}
+
 export const auth = {
   register: (body) => api('/auth/register', { method: 'POST', body }),
   login: (body) => api('/auth/login', { method: 'POST', body }),
   me: () => api('/auth/me'),
   updateProfile: (body) => api('/auth/me', { method: 'PUT', body }),
+  uploadCV: (formData) => apiUpload('/auth/me/cv', formData),
+};
+
+export const jobs = {
+  list: (params = '') => api(`/jobs?${params}`),
+  get: (id) => api(`/jobs/${id}`),
+  recommended: (limit = 30) => api(`/jobs/recommended?limit=${limit}`),
+  scrape: () => api('/jobs/scrape', { method: 'POST' }),
+  embed: () => api('/jobs/embed', { method: 'POST' }),
+  stats: () => api('/jobs/stats/summary'),
 };
 
 export const opportunities = {

@@ -4,6 +4,9 @@ import { auth as authApi } from './api';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Jobs from './pages/Jobs';
+import JobDetail from './pages/JobDetail';
+import Recommended from './pages/Recommended';
 import Opportunities from './pages/Opportunities';
 import OpportunityDetail from './pages/OpportunityDetail';
 import CreateOpportunity from './pages/CreateOpportunity';
@@ -65,12 +68,14 @@ function Navbar() {
     <nav className="navbar">
       <Link to="/" className="logo">🏛️ UdyogaSakha</Link>
       <div className="nav-links">
-        <Link to="/opportunities">Opportunities</Link>
+        <Link to="/jobs">Jobs</Link>
+        {user && <Link to="/recommended">For You</Link>}
+        <Link to="/opportunities">Community</Link>
         {user ? (
           <>
-            {user.role === 'provider' && <Link to="/create-opportunity">Post Opportunity</Link>}
-            {user.role === 'seeker' && <Link to="/my-applications">My Applications</Link>}
-            {user.role === 'provider' && <Link to="/my-listings">My Listings</Link>}
+            {user.role === 'recruiter' && <Link to="/create-opportunity">Post</Link>}
+            {user.role === 'talent' && <Link to="/my-applications">Applications</Link>}
+            {user.role === 'recruiter' && <Link to="/my-listings">Listings</Link>}
             {['admin', 'moderator'].includes(user.role) && <Link to="/admin">Dashboard</Link>}
             {['admin', 'moderator'].includes(user.role) && <Link to="/moderation">Moderation</Link>}
             {['admin', 'moderator'].includes(user.role) && <Link to="/trust-mgmt">Trust</Link>}
@@ -99,11 +104,14 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/jobs" element={<Jobs />} />
+            <Route path="/jobs/:id" element={<JobDetail />} />
+            <Route path="/recommended" element={<ProtectedRoute><Recommended /></ProtectedRoute>} />
             <Route path="/opportunities" element={<Opportunities />} />
             <Route path="/opportunities/:id" element={<OpportunityDetail />} />
-            <Route path="/create-opportunity" element={<ProtectedRoute roles={['provider', 'admin']}><CreateOpportunity /></ProtectedRoute>} />
+            <Route path="/create-opportunity" element={<ProtectedRoute roles={['recruiter', 'admin']}><CreateOpportunity /></ProtectedRoute>} />
             <Route path="/my-applications" element={<ProtectedRoute><MyApplications /></ProtectedRoute>} />
-            <Route path="/my-listings" element={<ProtectedRoute roles={['provider', 'admin']}><MyListings /></ProtectedRoute>} />
+            <Route path="/my-listings" element={<ProtectedRoute roles={['recruiter', 'admin']}><MyListings /></ProtectedRoute>} />
             <Route path="/admin" element={<ProtectedRoute roles={['admin', 'moderator']}><AdminDashboard /></ProtectedRoute>} />
             <Route path="/moderation" element={<ProtectedRoute roles={['admin', 'moderator']}><ModerationQueue /></ProtectedRoute>} />
             <Route path="/trust-mgmt" element={<ProtectedRoute roles={['admin', 'moderator']}><TrustManagement /></ProtectedRoute>} />

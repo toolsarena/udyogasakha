@@ -76,3 +76,16 @@ th { background: #f8f9fa; font-weight: 600; color: #2c3e50; }
 .actions { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
 a.card-link { text-decoration: none; color: inherit; }
 a.card-link:hover .card { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+
+/* Skill tags */
+.skill-tag { display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.75rem; background: #ebf5fb; color: #2980b9; margin: 2px 4px 2px 0; }
+
+/* Source tags */
+.source-tag { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+.source-remotive { background: #d5f5e3; color: #1e8449; }
+.source-arbeitnow { background: #fdebd0; color: #d35400; }
+.source-findwork { background: #d6eaf8; color: #2471a3; }
+
+/* Rank & score badges */
+.rank-badge { background: #2c3e50; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; }
+.score-badge { background: #27ae60; color: white; padding: 4px 10px; border-radius: 6px; font-size: 0.85rem; font-weight: bold; }

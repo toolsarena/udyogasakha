@@ -7,7 +7,7 @@ const { auditLog } = require('../middleware/audit');
 const router = express.Router();
 
 // Apply to an opportunity
-router.post('/', authenticate, authorize('seeker', 'admin'), [
+router.post('/', authenticate, authorize('talent', 'admin'), [
   body('opportunity_id').isInt(),
 ], (req, res) => {
   const errors = validationResult(req);

@@ -45,7 +45,7 @@ router.get('/:id', (req, res) => {
 });
 
 // Create opportunity (providers/admins)
-router.post('/', authenticate, authorize('provider', 'admin'), [
+router.post('/', authenticate, authorize('recruiter', 'admin'), [
   body('title').notEmpty(),
   body('description').notEmpty(),
   body('module').isIn(['employment', 'service_engagement']),

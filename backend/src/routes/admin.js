@@ -22,6 +22,9 @@ router.get('/dashboard', authenticate, authorize('admin', 'moderator'), (req, re
       pending_moderations: db.prepare("SELECT COUNT(*) as count FROM opportunities WHERE status = 'pending_moderation'").get().count,
       pending_verifications: db.prepare("SELECT COUNT(*) as count FROM verifications WHERE status = 'pending'").get().count,
       open_complaints: db.prepare("SELECT COUNT(*) as count FROM complaints WHERE status IN ('open','reviewing')").get().count,
+      jobs_total: db.prepare('SELECT COUNT(*) as count FROM jobs').get().count,
+      jobs_by_source: db.prepare('SELECT source, COUNT(*) as count FROM jobs GROUP BY source').all(),
+      jobs_embedded: db.prepare('SELECT COUNT(*) as count FROM jobs WHERE embedding IS NOT NULL').get().count,
     };
     res.json(stats);
   } finally {
