@@ -1,4 +1,4 @@
-const BASE = '/api';
+const BASE = 'https://udyogasakha-api.onrender.com/api';
 
 async function api(path, options = {}) {
   const token = localStorage.getItem('token');
