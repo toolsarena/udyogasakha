@@ -1,4 +1,4 @@
-const BASE = (process.env.REACT_APP_API_URL || '') + '/api';
+const BASE = '/api';
 
 async function api(path, options = {}) {
   const token = localStorage.getItem('token');
